@@ -24,6 +24,8 @@ RUN INSTALL_PKGS="nginx findutils gettext" && \
     chown -R 1001:0 /var/lib/nginx /var/log/nginx /run /docker-entrypoint.d /etc/nginx/templates /etc/nginx/conf.d && \
     chmod -R ug+rwX /var/lib/nginx /var/log/nginx /run /docker-entrypoint.d /etc/nginx/templates /etc/nginx/conf.d
 
+ENV NGINX_PORT=8080
+
 # Use none-root user
 USER 1001
 
@@ -35,6 +37,7 @@ USER 1001
 #  root         /opt/app-root/src;
 
 COPY --from=build /opt/app-root/src/app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 COPY docker-entrypoint.sh /
