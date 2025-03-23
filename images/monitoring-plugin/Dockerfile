@@ -42,12 +42,15 @@ RUN dnf install -y nginx findutils gettext && \
     chown -R 1001:0 /var/lib/nginx /var/log/nginx /run /docker-entrypoint.d /etc/nginx/templates /etc/nginx/conf.d && \
     chmod -R ug+rwX /var/lib/nginx /var/log/nginx /run /docker-entrypoint.d /etc/nginx/templates /etc/nginx/conf.d
 
+ENV NGINX_PORT=8080
+
 USER 1001
 
 COPY --from=web-builder /opt/app-root/web/dist /opt/app-root/web/dist
 COPY --from=go-builder /opt/app-root/plugin-backend /opt/app-root
 
 COPY --from=web-builder /opt/app-root/web/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 COPY docker-entrypoint.sh /
