@@ -69,8 +69,11 @@ bridgeEnvironmentVariables:
   # BRIDGE_USER_AUTH_OIDC_CLIENT_SECRET defaults to consuming vaule from values.secrets.idpSecret.secretName
 
 extraEnv: ""
-  # - name: BRIDGE_INACTIVITY_TIMEOUT
-  #   value: 300
+#   - name: BRIDGE_INACTIVITY_TIMEOUT
+#    value: 300
+#    # Disable console telemetry (use STATE=DISABLED per console-shared useTelemetry / CLUSTER_TELEMETRY_ANALYTICS).
+#   - name: BRIDGE_TELEMETRY
+#     value: "STATE=DISABLED"
 
 # log-level
 verbosity: 1
